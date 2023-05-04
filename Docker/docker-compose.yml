@@ -1,0 +1,23 @@
+db:
+  image: mariadb:10.8.2
+  restart: always
+  volumes:
+    - ./mysql:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: test
+    MYSQL_DATABASE: database
+  ports:
+    - "8889:3306"
+
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin:latest
+  links:
+    - db
+  ports:
+    - 80:80
+  environment:
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: test
+    MYSQL_DATABASE: database

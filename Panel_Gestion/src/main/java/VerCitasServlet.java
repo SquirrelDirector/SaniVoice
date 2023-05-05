@@ -29,7 +29,7 @@ public class VerCitasServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
-		response.getWriter().println("/ver_citas);
+		response.getWriter().println("/ver_citas");
 	}
 
 	/**

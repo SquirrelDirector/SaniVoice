@@ -69,6 +69,14 @@
         <servlet-name>PrescripcionServlet</servlet-name>
         <servlet-class>PrescripcionServlet</servlet-class>
   </servlet>
+  <servlet>
+        <servlet-name>XMLGatewayServlet</servlet-name>
+        <servlet-class>XMLGatewayServlet</servlet-class>
+  </servlet>
+  <servlet>
+  		<servlet-name>NotificacionesServlet</servlet-name>
+  		<servlet-class>NotificacionesServlet</servlet-class>
+  </servlet>
   
   
   <servlet-mapping>
@@ -131,4 +139,12 @@
 		<servlet-name>PrescripcionServlet</servlet-name>
 		<url-pattern>/do_prescribir</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>XMLGatewayServlet</servlet-name>
+        <url-pattern>/XMLDocumentExchange</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+        <servlet-name>NotificacionesServlet</servlet-name>
+        <url-pattern>/notificar</url-pattern>
+  	</servlet-mapping>
 </web-app>

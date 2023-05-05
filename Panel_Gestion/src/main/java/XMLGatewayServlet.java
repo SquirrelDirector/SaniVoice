@@ -7,17 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanivoice.gestion_interna.GestorBD;
+
 /**
- * Servlet implementation class ModificarDatosServlet
+ * Esta clase es para implementar el estándar propuesto.
+ * Simplemente interpretará un fichero XML que llegue y devolverá un XML 
+ * por respuesta
+ * Servlet implementation class XMLGatewayServlet
  */
-@WebServlet("/doModificar_datos")
-public class ModificarDatosServlet extends HttpServlet {
+@WebServlet("/XMLDocumentExchange")
+public class XMLGatewayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModificarDatosServlet() {
+    public XMLGatewayServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +32,10 @@ public class ModificarDatosServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//Rediriges con response.sendRedirect("");
-				//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
-				response.getWriter().println("/doModificar_datos");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		GestorBD gbd = GestorBD.getGestorBD();
+		gbd.metodoEjemploEscritura();
+		gbd.metodoEjemploLectura();
 	}
 
 	/**

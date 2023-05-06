@@ -1,85 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>SaniVoice-Gestion</display-name>
-  <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
-    <!--  welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file-->
-  </welcome-file-list>
-  <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>RegistroServlet</servlet-name>
-        <servlet-class>RegistroServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>ModificarDatosServlet</servlet-name>
-        <servlet-class>ModificarDatosServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>EliminarDatosServlet</servlet-name>
-        <servlet-class>EliminarDatosServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>ValidarUsuarioServlet</servlet-name>
-        <servlet-class>ValidarUsuarioServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>ClinicasUsuarioServlet</servlet-name>
-        <servlet-class>ClinicasUsuarioServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>EspecialidadesClinicaServlet</servlet-name>
-        <servlet-class>EspecialidadesClinicaServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>FechasCitasServlet</servlet-name>
-        <servlet-class>FechasCitasServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>HorasCitasServlet</servlet-name>
-        <servlet-class>HorasCitasServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>ReservarCitaServlet</servlet-name>
-        <servlet-class>ReservarCitaServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>EliminarCitaServlet</servlet-name>
-        <servlet-class>EliminarCitaServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>VerCitasServlet</servlet-name>
-        <servlet-class>VerCitasServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>LoginFacultativoServlet</servlet-name>
-        <servlet-class>LoginFacultativoServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>ReservarCitaFacultativoServlet</servlet-name>
-        <servlet-class>ReservarCitaFacultativoServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>PrescripcionServlet</servlet-name>
-        <servlet-class>PrescripcionServlet</servlet-class>
-  </servlet>
-  <servlet>
-        <servlet-name>XMLGatewayServlet</servlet-name>
-        <servlet-class>XMLGatewayServlet</servlet-class>
-  </servlet>
-  <servlet>
-  		<servlet-name>NotificacionesServlet</servlet-name>
-  		<servlet-class>NotificacionesServlet</servlet-class>
-  </servlet>
-  
-  
-  <servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>SaniVoice-Gestion</display-name>
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+		<!-- welcome-file>index.htm</welcome-file> <welcome-file>index.jsp</welcome-file> 
+			<welcome-file>default.html</welcome-file> <welcome-file>default.htm</welcome-file> 
+			<welcome-file>default.jsp</welcome-file -->
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>LoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RegistroServlet</servlet-name>
+		<servlet-class>RegistroServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ModificarDatosServlet</servlet-name>
+		<servlet-class>ModificarDatosServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EliminarDatosServlet</servlet-name>
+		<servlet-class>EliminarDatosServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ValidarUsuarioServlet</servlet-name>
+		<servlet-class>ValidarUsuarioServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ClinicasUsuarioServlet</servlet-name>
+		<servlet-class>ClinicasUsuarioServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EspecialidadesClinicaServlet</servlet-name>
+		<servlet-class>EspecialidadesClinicaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FechasCitasServlet</servlet-name>
+		<servlet-class>FechasCitasServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HorasCitasServlet</servlet-name>
+		<servlet-class>HorasCitasServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReservarCitaServlet</servlet-name>
+		<servlet-class>ReservarCitaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>EliminarCitaServlet</servlet-name>
+		<servlet-class>EliminarCitaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>VerCitasServlet</servlet-name>
+		<servlet-class>VerCitasServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LoginFacultativoServlet</servlet-name>
+		<servlet-class>LoginFacultativoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReservarCitaFacultativoServlet</servlet-name>
+		<servlet-class>ReservarCitaFacultativoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>PrescripcionServlet</servlet-name>
+		<servlet-class>PrescripcionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>XMLGatewayServlet</servlet-name>
+		<servlet-class>XMLGatewayServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NotificacionesServlet</servlet-name>
+		<servlet-class>NotificacionesServlet</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
 		<servlet-name>RegistroServlet</servlet-name>
 		<url-pattern>/doRegistro</url-pattern>
 	</servlet-mapping>
@@ -140,11 +141,11 @@
 		<url-pattern>/do_prescribir</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-        <servlet-name>XMLGatewayServlet</servlet-name>
-        <url-pattern>/XMLDocumentExchange</url-pattern>
-  	</servlet-mapping>
-  	<servlet-mapping>
-        <servlet-name>NotificacionesServlet</servlet-name>
-        <url-pattern>/notificar</url-pattern>
-  	</servlet-mapping>
+		<servlet-name>XMLGatewayServlet</servlet-name>
+		<url-pattern>/XMLDocumentExchange</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NotificacionesServlet</servlet-name>
+		<url-pattern>/notificar</url-pattern>
+	</servlet-mapping>
 </web-app>

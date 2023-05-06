@@ -14,6 +14,7 @@
 <body>
 	<h1>REGISTRO</h1>
 	<form method="post" action="RegistroServlet">
+	
 		<label for="nombre">Nombre:</label> 
 		<input type="text" id="nombre" name="nombre"> 
 		<label for="apellidos">Apellidos:</label> 
@@ -30,6 +31,8 @@
 		<input type="text" id="correo_electronico" name="correo_electronico"> 
 		<label for="contraseña">Contraseña:</label> 
 		<input type="text" id="contraseña" name="contraseña">
+		
+		<input type="submit" value="Enviar">
 	</form>
 </body>
 </html>

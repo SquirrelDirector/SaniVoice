@@ -27,4 +27,17 @@ public class GestorCitas {
 	 * A través de este gestor llamar al gestorBD para realizar los cambios
 	 * pertinentes, así como al gestor de centros de salud!
 	 */
+	
+	public boolean eliminaCita(String mail, String fecha, String hora) {
+		boolean resp = false;
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mail);
+		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
+		ct = GestorBD.getGestorBD().getHoraCita(hora);
+		if (p != null && ct != null) {
+			resp = true;
+		}
+		return resp;
+
+	}
+	
 }

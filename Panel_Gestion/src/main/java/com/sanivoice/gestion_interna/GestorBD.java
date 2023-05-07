@@ -111,4 +111,94 @@ public class GestorBD {
 		desconectar();
 	}
 	
+	public Paciente getPacientePorEmail(String emailAlexa) {
+		Paciente p = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from Paciente where correo_electronico = '"+emailAlexa+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				int id = resultado.getInt("id");
+				String nombre = resultado.getString("nombre");
+				String email = resultado.getString("correo_electronico");
+				System.out.println("ID: " + id + ". Nombre: " + nombre + ". correo_electronico: " + email);
+				p=new Paciente(nombre, null, null, null, null, null, email, null);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return p;
+	}
+	
+	public Cita getFechaCita(String fecha) {
+		Cita ct = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from CentroSalud where fecha = '"+fecha+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String fechaobtener = resultado.getString("fecha");
+				ct = new Cita(null, fechaobtener, null, null, null, null);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return ct;
+	}
+	
+	public Cita getHoraCita(String hora) {
+		Cita ct = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from CentroSalud where hora = '"+hora+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String horaobtener = resultado.getString("fecha");
+				ct = new Cita(null, null, horaobtener, null, null, null);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return ct;
+	}
+	
+	public void setEliminaCita(String mail, String fecha, String hora) {
+		conectar();
+		int reserva;
+		String dml = "";
+		try {
+			dml = "insert into Cita(mail, fecha, hora) values " + "(mail, fecha, hora)";
+			PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
+			sentenciaPreparada.setString(1, mail);
+			sentenciaPreparada.setString(2, fecha);
+			sentenciaPreparada.setString(3, hora);
+			reserva = sentenciaPreparada.clearParameters();//¿Elimina?
+			sentenciaPreparada.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		desconectar();
+	}
+	
+	
+	
 }

@@ -242,20 +242,19 @@ public class GestorBD {
 		return ct;
 	}
 	
-	public Cita setCita(String url, String especialidad, String fecha, String hora, String nombre) {
+	public void setCita(String url, String especialidad, String fecha, String hora, String nombre) {
 		conectar();
-		Cita ct = null;
 		int reserva;
 		String dml = "";
 		try {
 			dml = "insert into Cita(GUID, fecha, hora, p, f, cs) values " + "(gUID, fecha, hora, nombre, especialidad ,url)";
 			PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
 			sentenciaPreparada.setInt(1, 9);
-			sentenciaPreparada.setString(2, "08/05/2023");
-			sentenciaPreparada.setString(3, "10:30");
-			sentenciaPreparada.setString(4, "Faustino");
-			sentenciaPreparada.setString(5, "Medicina general");
-			sentenciaPreparada.setString(6, "www.com");
+			sentenciaPreparada.setString(2, fecha);
+			sentenciaPreparada.setString(3, hora);
+			sentenciaPreparada.setString(4, nombre);
+			sentenciaPreparada.setString(5, especialidad);
+			sentenciaPreparada.setString(6, url);
 			reserva = sentenciaPreparada.executeUpdate();
 			sentenciaPreparada.close();
 
@@ -263,7 +262,6 @@ public class GestorBD {
 			ex.printStackTrace();
 		}
 		desconectar();
-		return ct;
 	}
 
 }

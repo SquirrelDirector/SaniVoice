@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanivoice.gestion_interna.GestorUsuarios;
+import com.sanivoice.gestion_interna.Paciente;
+
 /**
  * Servlet implementation class RegistroServlet
  */
@@ -36,6 +39,17 @@ public class RegistroServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String nombre = request.getParameter("nombre");
+		String apellidos = request.getParameter("apellidos");
+		String dni = request.getParameter("dni");
+		String tarjeta_sanitaria = request.getParameter("tarjeta_sanitaria");
+		String telefono = request.getParameter("telefono");
+		String domicilio = request.getParameter("domicilio");
+		String correo_electronico = request.getParameter("correo_electronico");
+		String contraseña = request.getParameter("contraseña");
+		Paciente paciente = new Paciente(nombre, apellidos, dni, tarjeta_sanitaria, telefono, domicilio, correo_electronico, contraseña);
+		GestorUsuarios.getGestorUsuarios().registroCorrecto(paciente);		
+		
 		doGet(request, response);
 	}
 

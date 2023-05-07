@@ -10,7 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 
 /**
  * Clase que gestiona la conexión a la base de datos
@@ -111,6 +113,7 @@ public class GestorBD {
 
 		desconectar();
 	}
+
 
 	public Paciente getPacientePorEmail(String emailAlexa) {
 		Paciente p = null;
@@ -492,5 +495,31 @@ public class GestorBD {
 	        desconectar();
 	        return ;
 	}
+
+
+	public void getRegistroCorrecto(Paciente p) {
+		conectar();
+		int regAfectados;
+		String dml = "";
+		try {
+			dml = "insert into Paciente(id, nombre, apellidos, dni, tarjeta_sanitaria, telefono, domicilio, correo_electronico, contraseña) values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
+			sentenciaPreparada.setString(1, p.getNombre());
+			sentenciaPreparada.setString(2, p.getApellidos());
+			sentenciaPreparada.setString(3, p.getDNI());
+			sentenciaPreparada.setString(4, p.getTarjetaSanitaria());
+			sentenciaPreparada.setString(5, p.getTelContacto());
+			sentenciaPreparada.setString(6, p.getDomicilio());
+			sentenciaPreparada.setString(7, p.getEmail());
+			sentenciaPreparada.setString(8, p.getClave());
+			regAfectados = sentenciaPreparada.executeUpdate();
+			sentenciaPreparada.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		desconectar();
+	}
+
 
 }

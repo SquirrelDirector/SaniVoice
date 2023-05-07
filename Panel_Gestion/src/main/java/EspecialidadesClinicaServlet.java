@@ -1,7 +1,11 @@
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +36,9 @@ public class EspecialidadesClinicaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
-		response.getWriter().println("/get_especialidades_por_clinica");
-		response.getWriter().println(GestorCitas.getGestorCitas().obtenEspecialidades(request.getParameter("url"), request.getParameter("especialidad")));
-	
+		ArrayList<String> especialidades = GestorCitas.getGestorCitas().obtenEspecialidades(request.getParameter("mail_usuario"));
+		JsonArrayBuilder jo = Json.createArrayBuilder(especialidades);
+		response.getWriter().print(jo.toString());
 	}
 
 	/**

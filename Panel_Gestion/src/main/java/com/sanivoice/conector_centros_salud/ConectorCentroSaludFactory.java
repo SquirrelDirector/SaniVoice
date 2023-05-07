@@ -20,8 +20,12 @@ public class ConectorCentroSaludFactory {
 		return ccsf;
 	}
 	
-	public Conector getConectorCentroSalud(CentroSalud cs) {		
-		return null;
+	public Conector getConectorCentroSalud(CentroSalud cs) {
+		if(cs.getURL().contains("164.92.236.0")) {
+			return new ConectorCentroNoAdscrito(cs.getURL());
+		}else {
+			return new ConectorCentroAdscrito(cs.getURL());
+		}
 	}
 
 }

@@ -1,5 +1,11 @@
 package com.sanivoice.gestion_interna;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import com.sanivoice.conector_centros_salud.Conector;
+import com.sanivoice.conector_centros_salud.ConectorCentroSaludFactory;
+
 /**
  * Clase que gestiona las citas
  * 
@@ -55,36 +61,55 @@ public class GestorCitas {
 
 	}
 
-	public String obtenEspecialidades(String url, String especialidad) {
-		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
-		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
+	public ArrayList<String> obtenEspecialidades(String mailUsuario) {
+		CentroSalud cs = GestorBD.getGestorBD().getCentroSalud(mailUsuario);
+		
+		/*Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
 		if (cs != null) {
 			return fc.getEspecialidad();
 		}
-		return null;
-
-	}
-
-	public String obtenFecha(String url, String especialidad, String fecha) {
-		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
-		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
-		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
-		if (cs != null && fc != null) {
-			return ct.getFecha();
-		}
-		return null;
+		return null;*/
+		Conector c = ConectorCentroSaludFactory.getConectorCentroSaludFactory().getConectorCentroSalud(cs);
+		ArrayList<String> especialidades = c.obtenerEspecialidadesCentro(); 
+		return especialidades;
 	}
 	
-	public String obtenHoras(String url, String especialidad, String fecha, String hora) {
-		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
-		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
-		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
-		ct = GestorBD.getGestorBD().getHoraCita(hora);
-		
-		if (cs != null && fc != null) {
-			return ct.getHora();
+
+	public ArrayList<Facultativo> obtenerCuadroMedicoPorEspecialidad(String mailUsuario, String especialidad){
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mailUsuario);
+		CentroSalud cs = p.getCs();
+		Conector c = ConectorCentroSaludFactory.getConectorCentroSaludFactory().getConectorCentroSalud(cs);
+		ArrayList<Facultativo> medicos = c.obtenerCuadroMedico(GestorBD.getGestorBD().getPacientePorEmail(mailUsuario));
+		Iterator<Facultativo> itr = medicos.iterator();
+		while(itr.hasNext()) {
+			Facultativo f = itr.next();
+			if(!f.getEspecialidad().equals(especialidad)) {
+				medicos.remove(f);
+			}
 		}
-		return null;
+		
+		return medicos;
+	}
+
+	public ArrayList<String> obtenerFechas(String mailUsuario, String ordenEspecialidad, String ordenMedico) {
+		ArrayList<String> especialidades = obtenEspecialidades(mailUsuario);
+		ArrayList<Facultativo> medicos = obtenerCuadroMedicoPorEspecialidad(mailUsuario, especialidades.get(Integer.parseInt(ordenEspecialidad)));
+		String especialidadSeleccionada = especialidades.get(Integer.parseInt(ordenEspecialidad)); 
+		String idFacultativoSeleccionado = medicos.get(Integer.parseInt(ordenMedico)).getNumColegiado();
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mailUsuario);
+		CentroSalud cs = p.getCs();
+		Conector c = ConectorCentroSaludFactory.getConectorCentroSaludFactory().getConectorCentroSalud(cs);
+		ArrayList<String> fechas = c.obtenerFechasDisponibles(GestorBD.getGestorBD().getPacientePorEmail(mailUsuario), medicos.get(Integer.parseInt(ordenMedico)));
+		return fechas;
+	}
+	
+	public ArrayList<String> obtenHoras(String mailUsuario, String ordenEspecialidad, String ordenMedico, String fecha) {
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mailUsuario);
+		CentroSalud cs = p.getCs();
+		Conector c = ConectorCentroSaludFactory.getConectorCentroSaludFactory().getConectorCentroSalud(cs);
+		Facultativo f = obtenerCuadroMedicoPorEspecialidad(mailUsuario, ordenEspecialidad).get(Integer.parseInt(ordenMedico));
+		ArrayList<String> horas = c.obtenerHorasDisponibles(p, f, fecha);
+		return horas;
 	}
 	
 	public boolean pideCita(String url, String especialidad, String fecha, String hora) {

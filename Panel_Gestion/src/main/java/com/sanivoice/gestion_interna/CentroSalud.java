@@ -6,9 +6,8 @@ public class CentroSalud {
 				   URL;
 	private boolean isAdscrito;
 	public CentroSalud(String nombreCentro, String uRL, boolean isAdscrito) {
-		super();
 		this.nombreCentro = nombreCentro;
-		URL = uRL;
+		this.URL = uRL;
 		this.isAdscrito = isAdscrito;
 	}
 	public String getNombreCentro() {

@@ -32,8 +32,7 @@ public class HorasCitasServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
-		response.getWriter().println("/get_horas");
-		response.getWriter().println(GestorCitas.getGestorCitas().obtenHoras(request.getParameter("url"), request.getParameter("especialidad"), request.getParameter("fecha"), request.getParameter("hora")));
+		response.getWriter().println(GestorCitas.getGestorCitas().obtenHoras(request.getParameter("mail_usuario"), request.getParameter("orden_especialidad"), request.getParameter("orden_medico"), request.getParameter("fecha")));
 	}
 
 	/**

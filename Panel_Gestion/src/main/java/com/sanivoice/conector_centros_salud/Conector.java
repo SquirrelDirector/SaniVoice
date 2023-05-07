@@ -12,7 +12,7 @@ import com.sanivoice.gestion_interna.Paciente;
  *
  */
 public abstract class Conector {
-	private String URL;
+	protected String URL;
 	public Conector(String URL) {
 		this.URL = URL;
 	}
@@ -32,6 +32,9 @@ public abstract class Conector {
 	}
 	
 	public ArrayList<Facultativo> obtenerCuadroMedico(Paciente p){
+		return null;
+	}
+	public ArrayList<String> obtenerEspecialidadesCentro(){
 		return null;
 	}
 	

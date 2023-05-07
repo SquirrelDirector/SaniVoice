@@ -15,6 +15,14 @@
 </head>
 <body>
 	<h1>LOGIN</h1>
-	Esta es la vista de inicio de sesión. Decórala como más te parezca.
+	<form method="post" action="LoginServlet">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br><br>
+
+        <label for="clave">Clave:</label>
+        <input type="text" id="clave" name="clave" required><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
 </body>
 </html>

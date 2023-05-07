@@ -111,4 +111,29 @@ public class GestorBD {
 		desconectar();
 	}
 	
+	public boolean registroCorrecto(String email, String clave) {
+        boolean resp = false;
+        conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+	        String dql = "select * from Paciente where correo_electronico = '"+email+"'";
+	        ResultSet resultado = sentencia.executeQuery(dql);
+	        while (resultado.next()) {
+	            
+	            String contraseña = resultado.getString("clave");
+	            if(contraseña.equals(clave)) {
+	            	resp = true;
+	            }
+	        }
+	        resultado.close();           
+	        sentencia.close();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		desconectar();
+		return resp;
+	}
+	
+	
 }

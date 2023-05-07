@@ -111,4 +111,92 @@ public class GestorBD {
 		desconectar();
 	}
 	
+	public CentroSalud getURLParaEspecialidad(String url) {
+		CentroSalud cs = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from CentroSalud where URL = '"+url+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String urlcentro = resultado.getString("URL");
+				cs = new CentroSalud(null, urlcentro, true);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return cs;
+	}
+	
+	public Facultativo getEspecialidad(String especialidad) {
+		Facultativo fc = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from CentroSalud where especialidad = '"+especialidad+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String especialidad1 = resultado.getString("especialidad");
+				fc = new Facultativo(null, null, null, especialidad1, null, null);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return fc;
+	}
+	
+	public Cita getFechaCita(String fecha) {
+		Cita ct = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from CentroSalud where fecha = '"+fecha+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String fechaobtener = resultado.getString("fecha");
+				ct = new Cita(null, fechaobtener, null, null, null, null);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return ct;
+	}
+	
+	public Cita getHoraCita(String hora) {
+		Cita ct = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from CentroSalud where hora = '"+hora+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String horaobtener = resultado.getString("fecha");
+				ct = new Cita(null, null, horaobtener, null, null, null);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return ct;
+	}
+	
 }

@@ -14,7 +14,7 @@ Vista de generación de citas para facultativos. Decórala a tu gusto.
 <% // Esto puede resultar útil si vas a recoger datos:
 	//request.getParameter("first_name")
 %>
-=======
+
 <h1>Registrar CITA</h1> 
 
 	<form method="post" action="">

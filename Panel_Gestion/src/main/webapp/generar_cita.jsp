@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>GENERAR CITA</h1>
+<h1>Registrar CITA</h1>
 Vista de generación de citas para facultativos. Decórala a tu gusto.
 <% // Esto puede resultar útil si vas a recoger datos:
 	//request.getParameter("first_name")

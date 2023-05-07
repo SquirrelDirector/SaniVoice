@@ -1,6 +1,7 @@
 package com.sanivoice.gestion_interna;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -442,6 +443,26 @@ public class GestorBD {
 		desconectar();
 	}
 	
-	
-	
+
+	public void getPreinscripcion(Preinscripcion p) {
+		conectar();
+		int regAfectados;
+		String dml = "";
+		try {
+			dml = "insert into Preinscripcion(dni, fechaInicio, fechaFin, periodicidad) values " + "(?, ?, ?, ?)";
+			PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
+			sentenciaPreparada.setString(1, p.getDni());
+			sentenciaPreparada.setDate(2, (Date) p.getFechaInicio());
+			sentenciaPreparada.setDate(3, (Date) p.getFechaFin());
+			sentenciaPreparada.setString(4, p.getPeriodicidad());
+			
+			regAfectados = sentenciaPreparada.executeUpdate();
+			sentenciaPreparada.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		desconectar();
+	}
+
 }

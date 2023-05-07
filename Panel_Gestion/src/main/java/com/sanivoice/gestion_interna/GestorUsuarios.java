@@ -1,5 +1,6 @@
 package com.sanivoice.gestion_interna;
 
+import java.util.List;
 
 /**
  * Clase que gestiona los diversos usuarios, sean facultativos o pacientes 
@@ -29,5 +30,8 @@ public class GestorUsuarios {
 	 * pertinentes, así como al gestor de centros de salud!
 	 */
 	
-	
+	public List<String> obtenerCentro(String dni) {
+		List<String> centro = GestorBD.getGestorBD().obtenerCentro(dni);
+		return centro;
+	}
 }

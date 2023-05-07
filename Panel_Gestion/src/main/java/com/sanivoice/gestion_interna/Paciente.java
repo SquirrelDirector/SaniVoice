@@ -9,9 +9,10 @@ public class Paciente {
 				   domicilio,
 				   email,
 				   clave;
+	private CentroSalud cs;
 
 	public Paciente(String nombre, String apellidos, String dNI, String tarjetaSanitaria, String telContacto,
-			String domicilio, String email, String clave) {
+			String domicilio, String email, String clave, CentroSalud cs) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -85,6 +86,14 @@ public class Paciente {
 
 	public void setClave(String clave) {
 		this.clave = clave;
+	}
+
+	public CentroSalud getCs() {
+		return cs;
+	}
+
+	public void setCs(CentroSalud cs) {
+		this.cs = cs;
 	}
 	
 	

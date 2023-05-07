@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanivoice.gestion_interna.GestorUsuarios;
+
 /**
  * Servlet implementation class ReservarCitaFacultativoServlet
  */
@@ -38,6 +40,8 @@ public class ReservarCitaFacultativoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		String dni = request.getParameter("dni");
+		GestorUsuarios.getGestorUsuarios().obtenerCentro(dni);
 	}
 
 }

@@ -1,11 +1,14 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sanivoice.gestion_interna.GestorCitas;
 
 /**
  * Servlet implementation class ReservarCitaServlet
@@ -38,6 +41,7 @@ public class ReservarCitaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		response.getWriter().println(GestorCitas.getGestorCitas().pideCita(request.getParameter("url"), request.getParameter("especialidad"),request.getParameter("fecha"), request.getParameter("horas")));
 	}
 
 }

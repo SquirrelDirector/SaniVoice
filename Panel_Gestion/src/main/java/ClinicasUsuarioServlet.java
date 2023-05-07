@@ -1,11 +1,14 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sanivoice.gestion_interna.GestorUsuarios;
 
 /**
  * Servlet implementation class ClinicasUsuarioServlet
@@ -30,6 +33,7 @@ public class ClinicasUsuarioServlet extends HttpServlet {
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
 		response.getWriter().println("/get_clinicas_usuario");
+		response.getWriter().println(GestorUsuarios.getGestorUsuarios().obtenClinicaUsuario(request.getParameter("nombreCentro")));
 	}
 
 	/**

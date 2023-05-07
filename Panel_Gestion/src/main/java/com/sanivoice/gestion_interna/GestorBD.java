@@ -7,6 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 /**
  * Clase que gestiona la conexión a la base de datos
@@ -442,7 +446,7 @@ public class GestorBD {
 		}
 		desconectar();
 	}
-	
+
 
 	public void getPreinscripcion(Preinscripcion p) {
 		conectar();
@@ -463,6 +467,30 @@ public class GestorBD {
 			ex.printStackTrace();
 		}
 		desconectar();
+	}
+
+
+	public List<String> obtenerCentro(String dni) {
+		
+		 CentroSalud cs = null;
+	        conectar();
+	        try {
+	            Statement sentencia = conexion.createStatement();
+	            String dql = "select * from Paciente where dni = '"+dni+"'";
+	            ResultSet resultado = sentencia.executeQuery(dql);
+	            List<String> nombreCentros = new ArrayList<>();
+	            int i = 0;
+	            while (resultado.next()) {
+	                nombreCentros[i] = resultado.getString("nombreCentro");
+	            }
+	            resultado.close();
+	            sentencia.close();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+
+	        desconectar();
+	        return ;
 	}
 
 }

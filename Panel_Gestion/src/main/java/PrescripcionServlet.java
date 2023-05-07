@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanivoice.gestion_interna.GestorPreinscripcion;
 import com.sanivoice.gestion_interna.Preinscripcion;
 
 /**
@@ -56,7 +57,7 @@ public class PrescripcionServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		Preinscripcion preinscripcion = new Preinscripcion(dni, fechaInicio, fechaFin, periodicidad);
-		
+		GestorPreinscripcion.getGestorPreinscripcion().getPreinscripcion(preinscripcion);
 	}
 
 	/**

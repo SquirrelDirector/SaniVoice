@@ -22,4 +22,8 @@ private static GestorPreinscripcion gp;
 	 * A través de este gestor llamar al gestorBD para realizar los cambios
 	 * pertinentes, así como al gestor de centros de salud!
 	 */
+	
+	public void getPreinscripcion(Preinscripcion p) {
+		GestorBD.getGestorBD().getPreinscripcion(p);
+	}
 }

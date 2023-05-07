@@ -1,11 +1,14 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sanivoice.gestion_interna.GestorCitas;
 
 /**
  * Servlet implementation class FechasCitasServlet
@@ -30,6 +33,7 @@ public class FechasCitasServlet extends HttpServlet {
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
 		response.getWriter().println("/get_fechas");
+		response.getWriter().println(GestorCitas.getGestorCitas().obtenFecha(request.getParameter("url"), request.getParameter("especialidad"), request.getParameter("fecha")));
 	}
 
 	/**

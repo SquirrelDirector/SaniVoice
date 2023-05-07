@@ -1,11 +1,14 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sanivoice.gestion_interna.GestorCitas;
 
 /**
  * Servlet implementation class ValidarUsuarioServlet
@@ -26,10 +29,12 @@ public class ValidarUsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		GestorCitas.getGestorCitas();
 		// TODO Auto-generated method stub
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
 		response.getWriter().println("/validar_existencia");
+		response.getWriter().println(GestorCitas.getGestorCitas().compruebaUsuarioViaMail(request.getParameter("mail_usuario")));
 	}
 
 	/**
@@ -39,5 +44,6 @@ public class ValidarUsuarioServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }

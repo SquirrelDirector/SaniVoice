@@ -29,5 +29,13 @@ public class GestorUsuarios {
 	 * pertinentes, así como al gestor de centros de salud!
 	 */
 	
+	public String obtenClinicaUsuario(String nombreCentro) {
+		CentroSalud cs = GestorBD.getGestorBD().getCentroSalud(nombreCentro);
+	    if (cs != null) {
+	        return cs.getNombreCentro();
+	    }
+	    return null;
+	}
+	
 	
 }

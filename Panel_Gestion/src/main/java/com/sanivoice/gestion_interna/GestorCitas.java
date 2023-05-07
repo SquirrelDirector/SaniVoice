@@ -27,6 +27,7 @@ public class GestorCitas {
 	 * de centros de salud!
 	 */
 
+
 	public Cita consultarCita(String url, String especialidad, String fecha, String hora) {
 		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
 		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
@@ -97,6 +98,19 @@ public class GestorCitas {
 			resp = true;
 		}
 		return resp;
+	}
+
+	
+	public boolean eliminaCita(String mail, String fecha, String hora) {
+		boolean resp = false;
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mail);
+		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
+		ct = GestorBD.getGestorBD().getHoraCita(hora);
+		if (p != null && ct != null) {
+			resp = true;
+		}
+		return resp;
+
 	}
 	
 }

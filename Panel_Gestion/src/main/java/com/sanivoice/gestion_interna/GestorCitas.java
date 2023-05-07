@@ -27,4 +27,19 @@ public class GestorCitas {
 	 * A través de este gestor llamar al gestorBD para realizar los cambios
 	 * pertinentes, así como al gestor de centros de salud!
 	 */
+	public Cita consultarCita(String url, String especialidad, String fecha, String hora) {
+		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
+		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
+		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
+		ct = GestorBD.getGestorBD().getHoraCita(hora);
+		if (cs != null && cs != null && fc != null) {
+			return ct;
+		}
+		return null;
+
+	}
+	
+
+	
+	
 }

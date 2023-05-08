@@ -44,10 +44,10 @@ public class FechasCitasServlet extends HttpServlet {
 		//Iterator<String> itr = fechas.iterator();
 		String dato="{fechas:[";
 		for (int i=0; i<fechas.size(); i++) {
-			if(i<fechas.size()-1) {
-				dato+=fechas.get(i)+",";
+			if(i< 5) {
+				dato+="'"+fechas.get(i)+"',";
 			}else {
-				dato+=fechas.get(i);
+				dato+="'"+fechas.get(i)+"'";
 			}
 		}
 		dato+="]}";

@@ -41,7 +41,8 @@ public class EliminarCitaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		response.getWriter().println(GestorCitas.getGestorCitas().eliminaCita(request.getParameter("mail"), request.getParameter("fecha"),request.getParameter("hora")));
+		GestorCitas.getGestorCitas().eliminaCita(request.getParameter("mail_usuario"), request.getParameter("fecha"),request.getParameter("hora"));
+		response.getWriter().println();
 	}
 
 }

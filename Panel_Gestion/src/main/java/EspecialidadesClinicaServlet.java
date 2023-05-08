@@ -37,8 +37,18 @@ public class EspecialidadesClinicaServlet extends HttpServlet {
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
 		ArrayList<String> especialidades = GestorCitas.getGestorCitas().obtenEspecialidades(request.getParameter("mail_usuario"));
-		JsonArrayBuilder jo = Json.createArrayBuilder(especialidades);
-		response.getWriter().print(jo.toString());
+		//JsonArrayBuilder jo = Json.createArrayBuilder(especialidades);
+		String respuesta = "{ especialidades: [";
+		for (int i=0; i<especialidades.size(); i++) {
+			if(i<especialidades.size()-1) {
+				respuesta+="'"+especialidades.get(i)+"',";
+			}else {
+				respuesta+="'"+especialidades.get(i)+"'";
+			}
+		}
+		respuesta+="]}";
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(respuesta);
 	}
 
 	/**

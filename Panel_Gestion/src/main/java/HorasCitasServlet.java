@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,17 @@ public class HorasCitasServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
-		response.getWriter().println(GestorCitas.getGestorCitas().obtenHoras(request.getParameter("mail_usuario"), request.getParameter("orden_especialidad"), request.getParameter("orden_medico"), request.getParameter("fecha")));
+		ArrayList<String> horas =  GestorCitas.getGestorCitas().obtenHoras(request.getParameter("mail_usuario"), request.getParameter("orden_especialidad"), request.getParameter("orden_medico"), request.getParameter("fecha"));
+		String respuesta = "{ horas: [";
+		for (int i=0; i<horas.size(); i++) {
+			if(i<horas.size()-1) {
+				respuesta+="'"+horas.get(i)+"',";
+			}else {
+				respuesta+="'"+horas.get(i)+"'";
+			}
+		}
+		respuesta+="]}";
+		response.getWriter().println(respuesta);
 	}
 
 	/**

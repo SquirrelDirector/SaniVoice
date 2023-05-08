@@ -266,7 +266,51 @@ public class GestorBD {
 		}
 		desconectar();
 	}
+	
+	public void setCita(Cita c) {
+		int idPaciente = getIdPaciente(c.getPaciente().getDNI());
+		conectar();
+		int reserva;
+		String dml = "";
+		try {
+			dml = "insert into Cita(fecha, hora, Paciente_idPaciente) values " + "(?, ?, ?)";
+			PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
 
+			sentenciaPreparada.setString(1, c.getFecha());
+			sentenciaPreparada.setString(2, c.getHora());
+			sentenciaPreparada.setInt(3, idPaciente);
+			
+			reserva = sentenciaPreparada.executeUpdate();
+			sentenciaPreparada.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		desconectar();
+	}
+
+
+	private int getIdPaciente(String dni) {
+		int idPaciente = 0;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select idPaciente from Paciente where dni= '"+dni+"'";
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				idPaciente= resultado.getInt("idPaciente");
+				
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return idPaciente;
+	}
 
 	public Paciente getPacientePorEmail(String emailAlexa) {
 		Paciente p = null;
@@ -392,6 +436,54 @@ public class GestorBD {
 			ex.printStackTrace();
 		}
 		desconectar();
+	}
+
+	public ArrayList<Cita> getCitasPaciente(Paciente p) {
+		ArrayList<Cita> citas = new ArrayList<Cita>();
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select idCita, fecha, hora FROM Cita WHERE Paciente_idPaciente = (select idPaciente FROM Paciente WHERE dni='"+p.getDNI()+"')";
+			System.out.println(dql);
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String fecha= resultado.getString("fecha");
+				String hora = resultado.getString("hora");
+				
+				Cita c = new Cita(null, fecha, hora, p, null, null);
+				citas.add(c);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+
+		return citas;
+	}
+
+	public boolean eliminarCita(String mail, String fecha, String hora) {
+		conectar();
+		int regAfectados=-1;
+		String dml = "";
+		try {
+			dml = "DELETE FROM Cita WHERE Paciente_idPaciente=(SELECT idPaciente FROM Paciente WHERE correo_electronico=?) AND fecha=? AND hora=?";
+			PreparedStatement sentenciaPreparada = conexion.prepareStatement(dml);
+			sentenciaPreparada.setString(1, mail);
+			sentenciaPreparada.setString(2, fecha);
+			sentenciaPreparada.setString(3, hora);
+			regAfectados = sentenciaPreparada.executeUpdate();
+			sentenciaPreparada.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		desconectar();
+		return regAfectados!=-1;
+		
 	}
 
 

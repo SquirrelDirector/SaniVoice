@@ -34,15 +34,17 @@ public class GestorCitas {
 	 */
 
 
-	public Cita consultarCita(String url, String especialidad, String fecha, String hora) {
-		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
+	public ArrayList<Cita> consultarCitas(String mailUsuario) {
+		/*CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
 		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
 		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
 		ct = GestorBD.getGestorBD().getHoraCita(hora);
 		if (cs != null && cs != null && fc != null) {
 			return ct;
-		}
-		return null;
+		}*/
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mailUsuario);
+		ArrayList<Cita> citas = GestorBD.getGestorBD().getCitasPaciente(p);
+		return citas;
 
 	}
 	
@@ -113,9 +115,9 @@ public class GestorCitas {
 		return horas;
 	}
 	
-	public boolean pideCita(String url, String especialidad, String fecha, String hora) {
+	public boolean pideCita(String mailUsuario, String orden_especialidad, String orden_medico, String fecha, String hora) {
 		boolean resp = false;
-		CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
+		/*CentroSalud cs = GestorBD.getGestorBD().getURLParaEspecialidad(url);
 		Facultativo fc = GestorBD.getGestorBD().getEspecialidad(especialidad);
 		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
 		ct = GestorBD.getGestorBD().getHoraCita(hora);
@@ -123,20 +125,22 @@ public class GestorCitas {
 		if (cs != null && fc != null && ct != null) {
 			resp = true;
 		}
-		return resp;
+		return resp;*/
+		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mailUsuario);
+		CentroSalud cs = p.getCs();
+		Facultativo f = obtenerCuadroMedicoPorEspecialidad(mailUsuario, orden_especialidad).get(Integer.parseInt(orden_medico));
+		Cita c = new Cita("", fecha, hora, p, f, cs);
+		ConectorCentroSaludFactory.getConectorCentroSaludFactory().getConectorCentroSalud(cs).reservarCita(c);
+		GestorBD.getGestorBD().setCita(c);
+		
+		return true;
 	}
 
 	
+	
 	public boolean eliminaCita(String mail, String fecha, String hora) {
-		boolean resp = false;
-		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mail);
-		Cita ct = GestorBD.getGestorBD().getFechaCita(fecha);
-		ct = GestorBD.getGestorBD().getHoraCita(hora);
-		if (p != null && ct != null) {
-			resp = true;
-		}
-		return resp;
-
+		GestorBD.getGestorBD().eliminarCita(mail, fecha, hora);
+		return true;
 	}
 	
 }

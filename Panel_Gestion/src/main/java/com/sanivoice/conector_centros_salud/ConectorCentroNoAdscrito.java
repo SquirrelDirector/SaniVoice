@@ -205,7 +205,7 @@ public class ConectorCentroNoAdscrito extends Conector {
 								.build();
 			HttpResponse response = client.send(request, BodyHandlers.ofString());
 			String datos = response.body().toString();
-			System.out.println(datos);
+			//System.out.println(datos);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ( );
 			Document documento = null;
 
@@ -220,7 +220,10 @@ public class ConectorCentroNoAdscrito extends Conector {
 			for (int i=0; i<lista.getLength(); i++) {
 				Node elem = lista.item(i);
 				if(i!=0) {
-					especialidades.add(elem.getTextContent().trim());
+					if(!elem.getTextContent().trim().equals("") && !elem.getTextContent().trim().contains("Elija")) {
+						especialidades.add(elem.getTextContent().trim());
+					}
+					
 				}
 			}
 			

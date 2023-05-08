@@ -21,7 +21,7 @@ public class ConectorCentroSaludFactory {
 	}
 	
 	public Conector getConectorCentroSalud(CentroSalud cs) {
-		if(cs.getURL().contains("164.92.236.0")) {
+		if(cs.getURL().contains("infotek")) {
 			return new ConectorCentroNoAdscrito(cs.getURL());
 		}else {
 			return new ConectorCentroAdscrito(cs.getURL());

@@ -24,6 +24,6 @@ private static GestorPreinscripcion gp;
 	 */
 	
 	public void getPreinscripcion(Preinscripcion p) {
-		GestorBD.getGestorBD().getPreinscripcion(p);
+		//GestorBD.getGestorBD().getPreinscripcion(p);
 	}
 }

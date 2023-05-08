@@ -43,8 +43,8 @@ public class GestorUsuarios {
 	
 
 	public List<String> obtenerCentro(String dni) {
-		List<String> centro = GestorBD.getGestorBD().obtenerCentro(dni);
-		return centro;
+		//List<String> centro = GestorBD.getGestorBD().obtenerCentro(dni);
+		return null;
 	}
 
 

@@ -14,5 +14,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/Christian/Documents/TIT/SaniVoice/Panel_Gestion/src/main/webapp/WEB-INF/lib/javax.json-1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

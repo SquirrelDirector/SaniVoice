@@ -1,13 +1,20 @@
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import com.sanivoice.gestion_interna.GestorCitas;
 
 /**
@@ -32,7 +39,19 @@ public class FechasCitasServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Rediriges con response.sendRedirect("");
 		//Escribe texto con response.getWriter().append("Served at: ").append(request.getContextPath());. Será util para implementar APIs
-		ArrayList<String> fechas = GestorCitas.getGestorCitas().obtenFecha(request.getParameter("mail_usuario"),request.getParameter("orden_especialidad"), request.getParameter("orden_medico"));
+		ArrayList<String> fechas = GestorCitas.getGestorCitas().obtenerFechas(request.getParameter("mail_usuario"),request.getParameter("orden_especialidad"), request.getParameter("orden_medico"));
+		//JsonArrayBuilder jarr = Json.createArrayBuilder();
+		//Iterator<String> itr = fechas.iterator();
+		String dato="{fechas:[";
+		for (int i=0; i<fechas.size(); i++) {
+			if(i<fechas.size()-1) {
+				dato+=fechas.get(i)+",";
+			}else {
+				dato+=fechas.get(i);
+			}
+		}
+		dato+="]}";
+		response.getWriter().print(dato);
 	}
 
 	/**

@@ -79,8 +79,9 @@ public class GestorCitas {
 		Paciente p = GestorBD.getGestorBD().getPacientePorEmail(mailUsuario);
 		CentroSalud cs = p.getCs();
 		Conector c = ConectorCentroSaludFactory.getConectorCentroSaludFactory().getConectorCentroSalud(cs);
+		ArrayList<Facultativo> medicosIterando = c.obtenerCuadroMedico(GestorBD.getGestorBD().getPacientePorEmail(mailUsuario));
 		ArrayList<Facultativo> medicos = c.obtenerCuadroMedico(GestorBD.getGestorBD().getPacientePorEmail(mailUsuario));
-		Iterator<Facultativo> itr = medicos.iterator();
+		Iterator<Facultativo> itr = medicosIterando.iterator();
 		while(itr.hasNext()) {
 			Facultativo f = itr.next();
 			if(!f.getEspecialidad().equals(especialidad)) {

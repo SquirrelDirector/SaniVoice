@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sanivoice.gestion_interna.GestorBD;
 import com.sanivoice.gestion_interna.GestorUsuarios;
 import com.sanivoice.gestion_interna.Paciente;
 
@@ -47,7 +48,8 @@ public class RegistroServlet extends HttpServlet {
 		String domicilio = request.getParameter("domicilio");
 		String correo_electronico = request.getParameter("correo_electronico");
 		String contraseña = request.getParameter("contraseña");
-		Paciente paciente = new Paciente(nombre, apellidos, dni, tarjeta_sanitaria, telefono, domicilio, correo_electronico, contraseña);
+		int identificador = Integer.parseInt(request.getParameter("centro_salud"));
+		Paciente paciente = new Paciente(nombre, apellidos, dni, tarjeta_sanitaria, telefono, domicilio, correo_electronico, contraseña, GestorBD.getGestorBD().getCentroSaludPorId(identificador));
 		GestorUsuarios.getGestorUsuarios().registroCorrecto(paciente);		
 		
 		doGet(request, response);

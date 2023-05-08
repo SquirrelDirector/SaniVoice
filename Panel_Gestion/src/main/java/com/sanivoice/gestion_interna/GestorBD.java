@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 
@@ -46,8 +46,9 @@ public class GestorBD {
 			String clave = "CLAVE";
 			String puerto = "8889";
 			String nombreDB = "database";
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost:" + puerto + "/" + nombreDB, "admin",
-					"test");
+			String urlJDBC = "jdbc:mysql://localhost:" + puerto + "/" + nombreDB;
+			System.out.println("URL JDBC: "+urlJDBC);
+			conexion = DriverManager.getConnection(urlJDBC, "admin","test");
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -114,76 +115,6 @@ public class GestorBD {
 		desconectar();
 	}
 
-
-	public Paciente getPacientePorEmail(String emailAlexa) {
-		Paciente p = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from Paciente where correo_electronico = '"+emailAlexa+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				int id = resultado.getInt("id");
-				String nombre = resultado.getString("nombre");
-				String email = resultado.getString("correo_electronico");
-				System.out.println("ID: " + id + ". Nombre: " + nombre + ". correo_electronico: " + email);
-				p=new Paciente(nombre, null, null, null, null, null, email, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return p;
-	}
-	
-	public CentroSalud getURLParaEspecialidad(String url) {
-		CentroSalud cs = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where URL = '"+url+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				String urlcentro = resultado.getString("URL");
-				cs = new CentroSalud(null, urlcentro, true);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return cs;
-	}
-	
-
-	public Facultativo getEspecialidad(String especialidad) {
-		Facultativo fc = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where especialidad = '"+especialidad+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				String especialidad1 = resultado.getString("especialidad");
-				fc = new Facultativo(null, null, null, especialidad1, null, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return fc;
-	}
 	
 	public Cita getFechaCita(String fecha) {
 		Cita ct = null;
@@ -229,17 +160,28 @@ public class GestorBD {
 		return ct;
 	}
 	
-	public CentroSalud getCentroSalud(String centroSalud) {
+	public CentroSalud getCentroSalud(String mailUsuario) {
+
 		CentroSalud cs = null;
 		conectar();
 		try {
 			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where nombreCentro = '"+centroSalud+"'";
+			System.out.println("MAIL: "+mailUsuario);
+			String dql = "select * from `Centro_salud` where idCentro_salud = (Select Centro_salud_idCentro_salud FROM Paciente WHERE correo_electronico='"+mailUsuario+"')";
+			System.out.println("SQL: "+dql);
 			ResultSet resultado = sentencia.executeQuery(dql);
 			while (resultado.next()) {
-
-				String nombreCentro = resultado.getString("nombreCentro");
-				cs = new CentroSalud(nombreCentro, null, true);
+				
+				String nombreCentro = resultado.getString("nombre_centro");
+				String url = resultado.getString("url");
+				int adscrito = resultado.getInt("adscrito");
+				
+				System.out.println("OK! nC: "+nombreCentro+". url: "+url+". ads: "+adscrito);
+				boolean isAdscrito = false;
+				if(adscrito==1) {
+					isAdscrito = true;
+				}
+				cs = new CentroSalud(nombreCentro, url, isAdscrito);
 			}
 			resultado.close();
 			sentencia.close();
@@ -251,6 +193,35 @@ public class GestorBD {
 		return cs;
 	}
 	
+	public CentroSalud getCentroSaludPorId(int idCentro) {
+		CentroSalud cs = null;
+		conectar();
+		try {
+			Statement sentencia = conexion.createStatement();
+			String dql = "select * from Centro_salud where idCentro_salud="+idCentro;
+			System.out.println(dql);
+			ResultSet resultado = sentencia.executeQuery(dql);
+			while (resultado.next()) {
+
+				String nombreCentro = resultado.getString("nombre_centro");
+				String url = resultado.getString("url");
+				int adscrito = resultado.getInt("adscrito");
+				boolean isAdscrito = false;
+				if(adscrito==1) {
+					isAdscrito = true;
+				}
+				System.out.println("OK! nC: "+nombreCentro+". url: "+url+". ads: "+adscrito);
+				cs = new CentroSalud(nombreCentro, url, isAdscrito);
+			}
+			resultado.close();
+			sentencia.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		desconectar();
+		return cs;
+	}
 	public CentroSalud getURLParaEspecialidad(String url) {
 		CentroSalud cs = null;
 		conectar();
@@ -273,71 +244,6 @@ public class GestorBD {
 		return cs;
 	}
 	
-	public Facultativo getEspecialidad(String especialidad) {
-		Facultativo fc = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where especialidad = '"+especialidad+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				String especialidad1 = resultado.getString("especialidad");
-				fc = new Facultativo(null, null, null, especialidad1, null, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return fc;
-	}
-	
-	public Cita getFechaCita(String fecha) {
-		Cita ct = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where fecha = '"+fecha+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				String fechaobtener = resultado.getString("fecha");
-				ct = new Cita(null, fechaobtener, null, null, null, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return ct;
-	}
-	
-	public Cita getHoraCita(String hora) {
-		Cita ct = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where hora = '"+hora+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				String horaobtener = resultado.getString("fecha");
-				ct = new Cita(null, null, horaobtener, null, null, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return ct;
-	}
 	
 	public void setCita(String url, String especialidad, String fecha, String hora, String nombre) {
 		conectar();
@@ -366,16 +272,24 @@ public class GestorBD {
 		Paciente p = null;
 		conectar();
 		try {
+			System.out.println("PACIENTE POR MAIL: "+emailAlexa);
 			Statement sentencia = conexion.createStatement();
 			String dql = "select * from Paciente where correo_electronico = '"+emailAlexa+"'";
 			ResultSet resultado = sentencia.executeQuery(dql);
 			while (resultado.next()) {
 
-				int id = resultado.getInt("id");
+				int id = resultado.getInt("idPaciente");
 				String nombre = resultado.getString("nombre");
+				String apellidos = resultado.getString("apellidos");
+				String dni = resultado.getString("dni");
+				String tSan = resultado.getString("tarjeta_sanitaria");
 				String email = resultado.getString("correo_electronico");
-				System.out.println("ID: " + id + ". Nombre: " + nombre + ". correo_electronico: " + email);
-				p=new Paciente(nombre, null, null, null, null, null, email, null);
+				String domicilio = resultado.getString("domicilio");
+				String clave = resultado.getString("contraseña");
+				String telContacto = resultado.getString("telefono");
+				int idCentro = resultado.getInt("Centro_salud_idCentro_salud");
+				CentroSalud cs = getCentroSaludPorId(idCentro);
+				p=new Paciente(nombre, apellidos, dni, tSan,telContacto, domicilio, email, clave, cs);
 			}
 			resultado.close();
 			sentencia.close();
@@ -387,51 +301,10 @@ public class GestorBD {
 		return p;
 	}
 	
-	public Cita getFechaCita(String fecha) {
-		Cita ct = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where fecha = '"+fecha+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
-
-				String fechaobtener = resultado.getString("fecha");
-				ct = new Cita(null, fechaobtener, null, null, null, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return ct;
-	}
 	
-	public Cita getHoraCita(String hora) {
-		Cita ct = null;
-		conectar();
-		try {
-			Statement sentencia = conexion.createStatement();
-			String dql = "select * from CentroSalud where hora = '"+hora+"'";
-			ResultSet resultado = sentencia.executeQuery(dql);
-			while (resultado.next()) {
 
-				String horaobtener = resultado.getString("fecha");
-				ct = new Cita(null, null, horaobtener, null, null, null);
-			}
-			resultado.close();
-			sentencia.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		desconectar();
-		return ct;
-	}
 	
-	public void setEliminaCita(String mail, String fecha, String hora) {
+	/*public void setEliminaCita(String mail, String fecha, String hora) {
 		conectar();
 		int reserva;
 		String dml = "";
@@ -494,7 +367,7 @@ public class GestorBD {
 
 	        desconectar();
 	        return ;
-	}
+	}*/
 
 
 	public void getRegistroCorrecto(Paciente p) {

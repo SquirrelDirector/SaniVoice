@@ -175,7 +175,7 @@ public class ConectorCentroNoAdscrito extends Conector {
 				while(itr2.hasNext()) {
 					JsonValue val = itr2.next();
 					JsonObject jo = val.asJsonObject();
-					Facultativo f = new Facultativo(jo.getString("nombre"), jo.getString("apellidos"), jo.getString("id"), especialidadesNombres.get(idxEspec), null, null);
+					Facultativo f = new Facultativo(jo.getString("nombre"), jo.getString("apellidos"), jo.getInt("id")+"", especialidadesNombres.get(idxEspec), null, null);
 					facu.add(f);
 				}
 				idxEspec++;
@@ -197,6 +197,7 @@ public class ConectorCentroNoAdscrito extends Conector {
 	public ArrayList<String> obtenerNombreEspecialidades(){
 		ArrayList<String> especialidades = new ArrayList<String>();
 		try {
+			System.out.println("URL: "+URL);
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder()
 								.uri(URI.create(URL))
@@ -204,7 +205,7 @@ public class ConectorCentroNoAdscrito extends Conector {
 								.build();
 			HttpResponse response = client.send(request, BodyHandlers.ofString());
 			String datos = response.body().toString();
-			
+			System.out.println(datos);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ( );
 			Document documento = null;
 

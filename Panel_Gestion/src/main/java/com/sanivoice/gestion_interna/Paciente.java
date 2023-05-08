@@ -22,6 +22,7 @@ public class Paciente {
 		this.domicilio = domicilio;
 		this.email = email;
 		this.clave = clave;
+		this.cs=cs;
 	}
 
 	public String getNombre() {

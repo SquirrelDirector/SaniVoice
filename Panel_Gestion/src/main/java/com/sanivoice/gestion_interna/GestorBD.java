@@ -44,9 +44,9 @@ public class GestorBD {
 		try {
 			String usuario = "TU_USUARIO";
 			String clave = "CLAVE";
-			String puerto = "8889";
+			String puerto = "3306";
 			String nombreDB = "database";
-			String urlJDBC = "jdbc:mysql://localhost:" + puerto + "/" + nombreDB;
+			String urlJDBC = "jdbc:mysql://db:" + puerto + "/" + nombreDB;
 			System.out.println("URL JDBC: "+urlJDBC);
 			conexion = DriverManager.getConnection(urlJDBC, "admin","test");
 		} catch (SQLException ex) {
